@@ -396,8 +396,6 @@ public class Amaze extends Application
                     break;
                 case ESCAPE:
                     ui = true;
-                    break;
-                case ENTER:
             }
 
         this.redraw();
