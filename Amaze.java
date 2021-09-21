@@ -450,7 +450,7 @@ public class Amaze extends Application
         this.gc.fillOval(lowMid ? 307 : 357, 422, 25, 25);
         this.gc.fillOval(low ? 307 : 357, 572, 25, 25);
 
-        this.gc.setFill(Color.MEDIUMPURPLE);
+        this.gc.setFill(Color.PURPLE);
         this.gc.fillOval(i[0] * 50 + 307, i[1] * 50 + 72, 25, 25);
 
         this.gc.setFill(Color.WHITE);
