@@ -294,6 +294,7 @@ public class Amaze extends Application
                         }
                 }
             else
+            {
                 if (!menu && kc.equals(KeyCode.UP))
                     menu = true;
                 else if (menu && kc.equals(KeyCode.DOWN))
@@ -302,6 +303,7 @@ public class Amaze extends Application
                     ui = false;
                 else if (!menu && kc.equals(KeyCode.ENTER))
                     markers = true;
+            }
         else
             switch (kc)
             {
