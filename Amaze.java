@@ -269,10 +269,12 @@ public class Amaze extends Application
                     case UP:
                         if (mark != 0)
                             mark--;
+                        
                         break;
                     case DOWN:
                         if (mark != 3)
                             mark++;
+                        
                         break;
                     case ESCAPE:
                         markers = false;
@@ -383,7 +385,7 @@ public class Amaze extends Application
                                             w[ii + 1][7].w = 3;
                                         }
                                     }
-
+                                    
                                 break;
                             case 3:
                                 low = !low;
@@ -437,6 +439,7 @@ public class Amaze extends Application
                 case UP:
                     if (w[i[0]][i[1]].n == 0)
                         i[1]--;
+                    
                     break;
                 case RIGHT:
                     if (w[i[0]][i[1]].e == 0 || w[i[0]][i[1]].e == 2)
@@ -480,6 +483,7 @@ public class Amaze extends Application
                 case DOWN:
                     if (w[i[0]][i[1]].s == 0)
                         i[1]++;
+                    
                     break;
                 case LEFT:
                     if (w[i[0]][i[1]].w == 0 || w[i[0]][i[1]].w == 3)
@@ -600,12 +604,10 @@ public class Amaze extends Application
                 i[1] = 0;
             }
             else
-            {
                 if (menu)
                     this.gc.fillPolygon(new double[] { 1316, 1354, 1354 }, new double[] { 248, 235, 261 }, 3);
                 else
                     this.gc.fillPolygon(new double[] { 1316, 1354, 1354 }, new double[] { 448, 435, 461 }, 3);
-            }
         }
 
         this.gc.setFill(Color.PURPLE);
