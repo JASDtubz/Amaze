@@ -282,15 +282,142 @@ public class Amaze extends Application
                         {
                             case 0:
                                 top = !top;
+
+                                if (top)
+                                    for (int ii = 0; ii < 17; ii++)
+                                    {
+                                        if (w[ii][1].w == 3)
+                                        {
+                                            w[ii][1].w = 0;
+                                            w[ii - 1][1].w = 2;
+                                        }
+
+                                        if (w[ii][1].e == 3)
+                                        {
+                                            w[ii][1].e = 0;
+                                            w[ii - 1][1].e = 2;
+                                        }
+                                    }
+                                else
+                                    for (int ii = 16; ii > -1; ii--)
+                                    {
+                                        if (w[ii][1].e == 2)
+                                        {
+                                            w[ii][1].e = 0;
+                                            w[ii + 1][1].e = 3;
+                                        }
+
+                                        if (w[ii][1].w == 2)
+                                        {
+                                            w[ii][1].w = 0;
+                                            w[ii + 1][1].w = 3;
+                                        }
+                                    }
+
                                 break;
                             case 1:
                                 topMid = !topMid;
+
+                                if (topMid)
+                                    for (int ii = 0; ii < 17; ii++)
+                                    {
+                                        if (w[ii][4].w == 3)
+                                        {
+                                            w[ii][4].w = 0;
+                                            w[ii - 1][4].w = 2;
+                                        }
+
+                                        if (w[ii][4].e == 3)
+                                        {
+                                            w[ii][4].e = 0;
+                                            w[ii - 1][4].e = 2;
+                                        }
+                                    }
+                                else
+                                    for (int ii = 16; ii > -1; ii--)
+                                    {
+                                        if (w[ii][4].e == 2)
+                                        {
+                                            w[ii][4].e = 0;
+                                            w[ii + 1][4].e = 3;
+                                        }
+
+                                        if (w[ii][4].w == 2)
+                                        {
+                                            w[ii][4].w = 0;
+                                            w[ii + 1][4].w = 3;
+                                        }
+                                    }
+
                                 break;
                             case 2:
                                 lowMid = !lowMid;
+
+                                if (lowMid)
+                                    for (int ii = 0; ii < 17; ii++)
+                                    {
+                                        if (w[ii][7].w == 3)
+                                        {
+                                            w[ii][7].w = 0;
+                                            w[ii - 1][7].w = 2;
+                                        }
+
+                                        if (w[ii][7].e == 3)
+                                        {
+                                            w[ii][7].e = 0;
+                                            w[ii - 1][7].e = 2;
+                                        }
+                                    }
+                                else
+                                    for (int ii = 16; ii > -1; ii--)
+                                    {
+                                        if (w[ii][7].e == 2)
+                                        {
+                                            w[ii][7].e = 0;
+                                            w[ii + 1][7].e = 3;
+                                        }
+
+                                        if (w[ii][7].w == 2)
+                                        {
+                                            w[ii][7].w = 0;
+                                            w[ii + 1][7].w = 3;
+                                        }
+                                    }
+
                                 break;
                             case 3:
                                 low = !low;
+
+                                if (low)
+                                    for (int ii = 0; ii < 17; ii++)
+                                    {
+                                        if (w[ii][10].w == 3)
+                                        {
+                                            w[ii][10].w = 0;
+                                            w[ii - 1][10].w = 2;
+                                        }
+
+                                        if (w[ii][10].e == 3)
+                                        {
+                                            w[ii][10].e = 0;
+                                            w[ii - 1][10].e = 2;
+                                        }
+                                    }
+                                else
+                                    for (int ii = 16; ii > -1; ii--)
+                                    {
+                                        if (w[ii][10].e == 2)
+                                        {
+                                            w[ii][10].e = 0;
+                                            w[ii + 1][10].e = 3;
+                                        }
+
+                                        if (w[ii][10].w == 2)
+                                        {
+                                            w[ii][10].w = 0;
+                                            w[ii + 1][10].w = 3;
+                                        }
+                                    }
                         }
                 }
             else
@@ -449,6 +576,37 @@ public class Amaze extends Application
         this.gc.fillOval(topMid ? 307 : 357, 272, 25, 25);
         this.gc.fillOval(lowMid ? 307 : 357, 422, 25, 25);
         this.gc.fillOval(low ? 307 : 357, 572, 25, 25);
+
+        if (ui)
+        {
+            if (markers)
+            {
+                switch (mark)
+                {
+                    case 0:
+                        this.gc.fillPolygon(new double[] { 245, 283, 245 }, new double[] { 122, 135, 148 }, 3);
+                        break;
+                    case 1:
+                        this.gc.fillPolygon(new double[] { 245, 283, 245 }, new double[] { 272, 285, 298 }, 3);
+                        break;
+                    case 2:
+                        this.gc.fillPolygon(new double[] { 245, 283, 245 }, new double[] { 422, 435, 448 }, 3);
+                        break;
+                    case 3:
+                        this.gc.fillPolygon(new double[] { 245, 283, 245 }, new double[] { 572, 585, 598 }, 3);
+                }
+
+                i[0] = 16;
+                i[1] = 0;
+            }
+            else
+            {
+                if (menu)
+                    this.gc.fillPolygon(new double[] { 1316, 1354, 1354 }, new double[] { 248, 235, 261 }, 3);
+                else
+                    this.gc.fillPolygon(new double[] { 1316, 1354, 1354 }, new double[] { 448, 435, 461 }, 3);
+            }
+        }
 
         this.gc.setFill(Color.PURPLE);
         this.gc.fillOval(i[0] * 50 + 307, i[1] * 50 + 72, 25, 25);
