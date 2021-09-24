@@ -263,17 +263,17 @@ public class Amaze extends Application
     public void keyEvent(KeyCode kc)
     {
         if (ui)
+        {
             if (markers)
+            {
                 switch (kc)
                 {
                     case UP:
-                        if (mark != 0)
-                            mark--;
+                        if (mark != 0) { mark--; }
 
                         break;
                     case DOWN:
-                        if (mark != 3)
-                            mark++;
+                        if (mark != 3) { mark++; }
 
                         break;
                     case ESCAPE:
@@ -286,6 +286,7 @@ public class Amaze extends Application
                                 top = !top;
 
                                 if (top)
+                                {
                                     for (int ii = 0; ii < 17; ii++)
                                     {
                                         if (w[ii][1].w == 3)
@@ -300,7 +301,9 @@ public class Amaze extends Application
                                             w[ii - 1][1].e = 2;
                                         }
                                     }
+                                }
                                 else
+                                {
                                     for (int ii = 16; ii > -1; ii--)
                                     {
                                         if (w[ii][1].e == 2)
@@ -315,12 +318,14 @@ public class Amaze extends Application
                                             w[ii + 1][1].w = 3;
                                         }
                                     }
+                                }
 
                                 break;
                             case 1:
                                 topMid = !topMid;
 
                                 if (topMid)
+                                {
                                     for (int ii = 0; ii < 17; ii++)
                                     {
                                         if (w[ii][4].w == 3)
@@ -335,7 +340,9 @@ public class Amaze extends Application
                                             w[ii - 1][4].e = 2;
                                         }
                                     }
+                                }
                                 else
+                                {
                                     for (int ii = 16; ii > -1; ii--)
                                     {
                                         if (w[ii][4].e == 2)
@@ -350,12 +357,14 @@ public class Amaze extends Application
                                             w[ii + 1][4].w = 3;
                                         }
                                     }
+                                }
 
                                 break;
                             case 2:
                                 lowMid = !lowMid;
 
                                 if (lowMid)
+                                {
                                     for (int ii = 0; ii < 17; ii++)
                                     {
                                         if (w[ii][7].w == 3)
@@ -370,7 +379,9 @@ public class Amaze extends Application
                                             w[ii - 1][7].e = 2;
                                         }
                                     }
+                                }
                                 else
+                                {
                                     for (int ii = 16; ii > -1; ii--)
                                     {
                                         if (w[ii][7].e == 2)
@@ -385,12 +396,14 @@ public class Amaze extends Application
                                             w[ii + 1][7].w = 3;
                                         }
                                     }
+                                }
 
                                 break;
                             case 3:
                                 low = !low;
 
                                 if (low)
+                                {
                                     for (int ii = 0; ii < 17; ii++)
                                     {
                                         if (w[ii][10].w == 3)
@@ -405,7 +418,9 @@ public class Amaze extends Application
                                             w[ii - 1][10].e = 2;
                                         }
                                     }
+                                }
                                 else
+                                {
                                     for (int ii = 16; ii > -1; ii--)
                                     {
                                         if (w[ii][10].e == 2)
@@ -420,44 +435,46 @@ public class Amaze extends Application
                                             w[ii + 1][10].w = 3;
                                         }
                                     }
+                                }
                         }
                 }
+            }
             else
             {
-                if (!menu && kc.equals(KeyCode.UP))
-                    menu = true;
-                else if (menu && kc.equals(KeyCode.DOWN))
-                    menu = false;
-                else if (menu && kc.equals(KeyCode.ENTER))
-                    ui = false;
-                else if (!menu && kc.equals(KeyCode.ENTER))
-                    markers = true;
+                if (!menu && kc.equals(KeyCode.UP)) { menu = true; }
+                else if (menu && kc.equals(KeyCode.DOWN)) { menu = false; }
+                else if (menu && kc.equals(KeyCode.ENTER)) { ui = false; }
+                else if (!menu && kc.equals(KeyCode.ENTER)) { markers = true; }
             }
+        }
         else
+        {
+            int i0 = i[0];
+            int i1 = i[1];
+
             switch (kc)
             {
                 case UP:
-                    if (w[i[0]][i[1]].n == 0)
-                        i[1]--;
+                    if (w[i0][i1].n == 0) { i[1]--; }
 
                     break;
                 case RIGHT:
-                    if (w[i[0]][i[1]].e == 0 || w[i[0]][i[1]].e == 2)
+                    if (w[i0][i1].e == 0 || w[i0][i1].e == 2)
                     {
-                        if (w[i[0]][i[1]].e != 0)
+                        if (w[i0][i1].e != 0)
                         {
                             for (int ii = 16; ii > -1; ii--)
                             {
-                                if (w[ii][i[1]].e == 2)
+                                if (w[ii][i1].e == 2)
                                 {
-                                    w[ii][i[1]].e = 0;
-                                    w[ii + 1][i[1]].e = 3;
+                                    w[ii][i1].e = 0;
+                                    w[ii + 1][i1].e = 3;
                                 }
 
-                                if (w[ii][i[1]].w == 2)
+                                if (w[ii][i1].w == 2)
                                 {
-                                    w[ii][i[1]].w = 0;
-                                    w[ii + 1][i[1]].w = 3;
+                                    w[ii][i1].w = 0;
+                                    w[ii + 1][i1].w = 3;
                                 }
                             }
 
@@ -479,34 +496,33 @@ public class Amaze extends Application
 
                         i[0]++;
                     }
-                    
+
                     break;
                 case DOWN:
-                    if (w[i[0]][i[1]].s == 0)
-                        i[1]++;
+                    if (w[i0][i1].s == 0) { i[1]++; }
 
                     break;
                 case LEFT:
-                    if (w[i[0]][i[1]].w == 0 || w[i[0]][i[1]].w == 3)
+                    if (w[i0][i1].w == 0 || w[i0][i1].w == 3)
                     {
-                        if (w[i[0]][i[1]].w != 0)
+                        if (w[i0][i1].w != 0)
                         {
                             for (int ii = 0; ii < 17; ii++)
                             {
-                                if (w[ii][i[1]].w == 3)
+                                if (w[ii][i1].w == 3)
                                 {
-                                    w[ii][i[1]].w = 0;
-                                    w[ii - 1][i[1]].w = 2;
+                                    w[ii][i1].w = 0;
+                                    w[ii - 1][i1].w = 2;
                                 }
 
-                                if (w[ii][i[1]].e == 3)
+                                if (w[ii][i1].e == 3)
                                 {
-                                    w[ii][i[1]].e = 0;
-                                    w[ii - 1][i[1]].e = 2;
+                                    w[ii][i1].e = 0;
+                                    w[ii - 1][i1].e = 2;
                                 }
                             }
 
-                            switch (i[1])
+                            switch (i1)
                             {
                                 case 1:
                                     top = true;
@@ -529,6 +545,7 @@ public class Amaze extends Application
                 case ESCAPE:
                     ui = true;
             }
+        }
 
         this.redraw();
     }
@@ -542,6 +559,7 @@ public class Amaze extends Application
         this.gc.setFill(Color.BLUE);
 
         for (int x = 0; x < 17; x++)
+        {
             for (int y = 0; y < 12; y++)
             {
                 Walls wall = w[x][y];
@@ -549,13 +567,10 @@ public class Amaze extends Application
                 int xx = x * 50 + 295;
                 int yy = y * 50 + 60;
 
-                if (wall.n == 1)
-                    this.gc.fillRect(xx, yy, 50, 2);
-                else if (wall.n == 4)
-                    this.gc.fillRect(xx, yy, 50, 50);
+                if (wall.n == 1) { this.gc.fillRect(xx, yy, 50, 2); }
+                else if (wall.n == 4) { this.gc.fillRect(xx, yy, 50, 50); }
 
-                if (wall.e == 1)
-                    this.gc.fillRect(xx + 48, yy, 2, 50);
+                if (wall.e == 1) { this.gc.fillRect(xx + 48, yy, 2, 50); }
                 else if (wall.e == 2 || wall.e == 3)
                 {
                     this.gc.setFill(Color.RED);
@@ -563,11 +578,9 @@ public class Amaze extends Application
                     this.gc.setFill(Color.BLUE);
                 }
 
-                if (wall.s == 1)
-                    this.gc.fillRect(xx, yy + 48, 50, 2);
+                if (wall.s == 1) { this.gc.fillRect(xx, yy + 48, 50, 2); }
 
-                if (wall.w == 1)
-                    this.gc.fillRect(xx, yy, 2, 50);
+                if (wall.w == 1) { this.gc.fillRect(xx, yy, 2, 50); }
                 else if (wall.w == 2 || wall.w == 3)
                 {
                     this.gc.setFill(Color.RED);
@@ -575,6 +588,7 @@ public class Amaze extends Application
                     this.gc.setFill(Color.BLUE);
                 }
             }
+        }
 
         this.gc.setFill(Color.RED);
         this.gc.fillOval(top ? 307 : 357, 122, 25, 25);
@@ -605,10 +619,10 @@ public class Amaze extends Application
                 i[1] = 0;
             }
             else
-                if (menu)
-                    this.gc.fillPolygon(new double[] { 1316, 1354, 1354 }, new double[] { 248, 235, 261 }, 3);
-                else
-                    this.gc.fillPolygon(new double[] { 1316, 1354, 1354 }, new double[] { 448, 435, 461 }, 3);
+            {
+                if (menu) { this.gc.fillPolygon(new double[] { 1316, 1354, 1354 }, new double[] { 248, 235, 261 }, 3); }
+                else { this.gc.fillPolygon(new double[] { 1316, 1354, 1354 }, new double[] { 448, 435, 461 }, 3); }
+            }
         }
 
         this.gc.setFill(Color.PURPLE);
