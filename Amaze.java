@@ -26,7 +26,6 @@ public class Amaze extends Application
 
     Canvas c = new Canvas(1440, 720);
     GraphicsContext gc = c.getGraphicsContext2D();
-    Stage stage;
 
     public static void main(String[] a) { launch(); }
 
@@ -254,10 +253,9 @@ public class Amaze extends Application
 
         this.redraw();
 
-        this.stage = s;
-        this.stage.setScene(scene);
-        this.stage.setMaximized(true);
-        this.stage.show();
+        s.setScene(scene);
+        s.setMaximized(true);
+        s.show();
     }
 
     public void keyEvent(KeyCode kc)
