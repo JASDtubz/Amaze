@@ -1,2 +1,2 @@
 # Amaze
-Based off the original toy but made into an API.
+Based off the original toy but made into an app.
