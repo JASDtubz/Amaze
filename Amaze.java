@@ -8,7 +8,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import static java.lang.System;
+import static java.lang.System.nanoTime;
+import static java.lang.System.out;
 
 import static javafx.scene.input.KeyCode.DOWN;
 import static javafx.scene.input.KeyCode.ENTER;
