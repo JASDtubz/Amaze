@@ -5,27 +5,39 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class Amaze extends Application
+import static javafx.scene.input.KeyCode.DOWN;
+import static javafx.scene.input.KeyCode.ENTER;
+import static javafx.scene.input.KeyCode.UP;
+import static javafx.scene.paint.Color.BLACK;
+import static javafx.scene.paint.Color.BLUE;
+import static javafx.scene.paint.Color.GRAY;
+import static javafx.scene.paint.Color.PURPLE;
+import static javafx.scene.paint.Color.RED;
+import static javafx.scene.paint.Color.WHITE;
+
+public final class Amaze extends Application
 {
     static Walls[][] w = new Walls[17][12];
     static Integer[] i = { 16, 0 };
 
     static int mark = 0;
-    boolean ui = true;
-    boolean menu = true;
-    boolean markers = false;
+    static boolean ui = true;
+    static boolean menu = true;
+    static boolean markers = false;
 
-    boolean top = true;
-    boolean topMid = true;
-    boolean lowMid = true;
-    boolean low = true;
+    static boolean top = true;
+    static boolean topMid = true;
+    static boolean lowMid = true;
+    static boolean low = true;
 
-    Canvas c = new Canvas(1440, 720);
-    GraphicsContext gc = c.getGraphicsContext2D();
+    static Canvas c = new Canvas(1440, 720);
+    static GraphicsContext gc = c.getGraphicsContext2D();
+
+    public static long time = 0;
+    public static boolean moved = false;
 
     public static void main(String[] a) { launch(); }
 
@@ -248,20 +260,34 @@ public class Amaze extends Application
         w[15][11] = new Walls(0, 0, 1, 1);
         w[16][11] = new Walls(1, 1, 1, 0);
 
-        Scene scene = new Scene(new StackPane(this.c), 1440, 720);
+        Scene scene = new Scene(new StackPane(c), 1440, 720);
         scene.setOnKeyPressed(e -> this.keyEvent(e.getCode()));
 
-        this.redraw();
+        redraw();
 
         s.setScene(scene);
         s.setMaximized(true);
         s.show();
+
+        Runnable r = new Clock();
+        Thread t = new Thread(r);
+        t.start();
     }
 
-    public void keyEvent(KeyCode kc)
+    synchronized public void keyEvent(KeyCode kc)
     {
+        Integer[] i_ = new Integer[] { -1, -1 };
+
+        if (i[0] == 16 && i[1] == 0)
+        {
+            i_[0] = 16;
+            i_[1] = 0;
+        }
+
         if (ui)
         {
+            moved = false;
+
             if (markers)
             {
                 switch (kc)
@@ -439,10 +465,10 @@ public class Amaze extends Application
             }
             else
             {
-                if (!menu && kc.equals(KeyCode.UP)) { menu = true; }
-                else if (menu && kc.equals(KeyCode.DOWN)) { menu = false; }
-                else if (menu && kc.equals(KeyCode.ENTER)) { ui = false; }
-                else if (!menu && kc.equals(KeyCode.ENTER)) { markers = true; }
+                if (!menu && kc.equals(UP)) { menu = true; }
+                else if (menu && kc.equals(DOWN)) { menu = false; }
+                else if (menu && kc.equals(ENTER)) { ui = false; }
+                else if (!menu && kc.equals(ENTER)) { markers = true; }
             }
         }
         else
@@ -545,16 +571,19 @@ public class Amaze extends Application
             }
         }
 
-        this.redraw();
+        if (i_[0] == 16 && i_[1] == 0 && i[0] == 16 && i[1] == 0) { moved = true; }
+        else if (i[0] == 16 && i[1] == 11) { moved = false; }
+
+        redraw();
     }
 
-    public void redraw()
+    synchronized public static void redraw()
     {
-        this.gc.setFill(Color.BLACK);
-        this.gc.fillRect(0, 0, 1440, 720);
-        this.gc.setFill(Color.GRAY);
-        this.gc.fillRect(295, 60, 850, 600);
-        this.gc.setFill(Color.BLUE);
+        gc.setFill(BLACK);
+        gc.fillRect(0, 0, 1440, 720);
+        gc.setFill(GRAY);
+        gc.fillRect(295, 60, 850, 600);
+        gc.setFill(BLUE);
 
         for (int x = 0; x < 17; x++)
         {
@@ -565,34 +594,34 @@ public class Amaze extends Application
                 int xx = x * 50 + 295;
                 int yy = y * 50 + 60;
 
-                if (wall.n == 1) { this.gc.fillRect(xx, yy, 50, 2); }
-                else if (wall.n == 4) { this.gc.fillRect(xx, yy, 50, 50); }
+                if (wall.n == 1) { gc.fillRect(xx, yy, 50, 2); }
+                else if (wall.n == 4) { gc.fillRect(xx, yy, 50, 50); }
 
-                if (wall.e == 1) { this.gc.fillRect(xx + 48, yy, 2, 50); }
+                if (wall.e == 1) { gc.fillRect(xx + 48, yy, 2, 50); }
                 else if (wall.e == 2 || wall.e == 3)
                 {
-                    this.gc.setFill(Color.RED);
-                    this.gc.fillRect(xx + 48, yy, 2, 50);
-                    this.gc.setFill(Color.BLUE);
+                    gc.setFill(RED);
+                    gc.fillRect(xx + 48, yy, 2, 50);
+                    gc.setFill(BLUE);
                 }
 
-                if (wall.s == 1) { this.gc.fillRect(xx, yy + 48, 50, 2); }
+                if (wall.s == 1) { gc.fillRect(xx, yy + 48, 50, 2); }
 
-                if (wall.w == 1) { this.gc.fillRect(xx, yy, 2, 50); }
+                if (wall.w == 1) { gc.fillRect(xx, yy, 2, 50); }
                 else if (wall.w == 2 || wall.w == 3)
                 {
-                    this.gc.setFill(Color.RED);
-                    this.gc.fillRect(xx, yy, 2, 50);
-                    this.gc.setFill(Color.BLUE);
+                    gc.setFill(RED);
+                    gc.fillRect(xx, yy, 2, 50);
+                    gc.setFill(BLUE);
                 }
             }
         }
 
-        this.gc.setFill(Color.RED);
-        this.gc.fillOval(top ? 307 : 357, 122, 25, 25);
-        this.gc.fillOval(topMid ? 307 : 357, 272, 25, 25);
-        this.gc.fillOval(lowMid ? 307 : 357, 422, 25, 25);
-        this.gc.fillOval(low ? 307 : 357, 572, 25, 25);
+        gc.setFill(RED);
+        gc.fillOval(top ? 307 : 357, 122, 25, 25);
+        gc.fillOval(topMid ? 307 : 357, 272, 25, 25);
+        gc.fillOval(lowMid ? 307 : 357, 422, 25, 25);
+        gc.fillOval(low ? 307 : 357, 572, 25, 25);
 
         if (ui)
         {
@@ -601,16 +630,16 @@ public class Amaze extends Application
                 switch (mark)
                 {
                     case 0:
-                        this.gc.fillPolygon(new double[] { 245, 283, 245 }, new double[] { 122, 135, 148 }, 3);
+                        gc.fillPolygon(new double[] { 245, 283, 245 }, new double[] { 122, 135, 148 }, 3);
                         break;
                     case 1:
-                        this.gc.fillPolygon(new double[] { 245, 283, 245 }, new double[] { 272, 285, 298 }, 3);
+                        gc.fillPolygon(new double[] { 245, 283, 245 }, new double[] { 272, 285, 298 }, 3);
                         break;
                     case 2:
-                        this.gc.fillPolygon(new double[] { 245, 283, 245 }, new double[] { 422, 435, 448 }, 3);
+                        gc.fillPolygon(new double[] { 245, 283, 245 }, new double[] { 422, 435, 448 }, 3);
                         break;
                     case 3:
-                        this.gc.fillPolygon(new double[] { 245, 283, 245 }, new double[] { 572, 585, 598 }, 3);
+                        gc.fillPolygon(new double[] { 245, 283, 245 }, new double[] { 572, 585, 598 }, 3);
                 }
 
                 i[0] = 16;
@@ -618,24 +647,28 @@ public class Amaze extends Application
             }
             else
             {
-                if (menu) { this.gc.fillPolygon(new double[] { 1316, 1354, 1354 }, new double[] { 248, 235, 261 }, 3); }
-                else { this.gc.fillPolygon(new double[] { 1316, 1354, 1354 }, new double[] { 448, 435, 461 }, 3); }
+                if (menu)
+                {
+                    gc.fillPolygon(new double[] { 1316, 1354, 1354 }, new double[] { 248, 235, 261 }, 3);
+                }
+                else { gc.fillPolygon(new double[] { 1316, 1354, 1354 }, new double[] { 448, 435, 461 }, 3); }
             }
         }
 
-        this.gc.setFill(Color.PURPLE);
-        this.gc.fillOval(i[0] * 50 + 307, i[1] * 50 + 72, 25, 25);
+        gc.setFill(PURPLE);
+        gc.fillOval(i[0] * 50 + 307, i[1] * 50 + 72, 25, 25);
 
-        this.gc.setFill(Color.WHITE);
-        this.gc.setFont(new Font("Impact", 32));
-        this.gc.fillText("Start", 1057, 50);
-        this.gc.fillText("Finish", 1057, 690);
-        this.gc.fillText("Resume", 1195, 260);
-        this.gc.fillText("Setup", 1195, 460);
+        gc.setFill(WHITE);
+        gc.setFont(new Font("Impact", 32));
+        gc.fillText("Start", 1057, 50);
+        gc.fillText("Finish", 1057, 690);
+        gc.fillText("Resume", 1195, 260);
+        gc.fillText("Setup", 1195, 460);
+        gc.fillText(String.valueOf(time), 100, 100);
     }
 }
 
-class Walls
+final class Walls
 {
     public int n, e, s, w;
 
@@ -645,5 +678,29 @@ class Walls
         this.e = e;
         this.s = s;
         this.w = w;
+    }
+}
+
+final class Clock implements Runnable
+{
+    @Override
+    public void run()
+    {
+        while (true)
+        {
+            System.out.println(Amaze.moved);
+
+            if (Amaze.moved)
+            {
+                long l = System.nanoTime();
+
+                System.out.println("B");
+
+                while (Amaze.moved)
+                {
+                    Amaze.time = System.nanoTime() - l;
+                }
+            }
+        }
     }
 }
