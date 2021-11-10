@@ -8,6 +8,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import static java.lang.System;
+
 import static javafx.scene.input.KeyCode.DOWN;
 import static javafx.scene.input.KeyCode.ENTER;
 import static javafx.scene.input.KeyCode.UP;
@@ -688,17 +690,17 @@ final class Clock implements Runnable
     {
         while (true)
         {
-            System.out.println(Amaze.moved);
+            out.println(Amaze.moved);
 
             if (Amaze.moved)
             {
-                long l = System.nanoTime();
+                long l = nanoTime();
 
-                System.out.println("B");
+                out.println("B");
 
                 while (Amaze.moved)
                 {
-                    Amaze.time = System.nanoTime() - l;
+                    Amaze.time = nanoTime() - l;
                 }
             }
         }
