@@ -9,7 +9,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import static java.lang.System.nanoTime;
-import static java.lang.System.out;
 
 import static javafx.scene.input.KeyCode.DOWN;
 import static javafx.scene.input.KeyCode.ENTER;
@@ -39,8 +38,8 @@ public final class Amaze extends Application
     static Canvas c = new Canvas(1440, 720);
     static GraphicsContext gc = c.getGraphicsContext2D();
 
-    public static long time = 0;
-    public static boolean moved = false;
+    public static volatile long time = 0;
+    public static volatile boolean moved = false;
 
     public static void main(String[] a) { launch(); }
 
@@ -691,18 +690,11 @@ final class Clock implements Runnable
     {
         while (true)
         {
-            out.println(Amaze.moved);
-
             if (Amaze.moved)
             {
                 long l = nanoTime();
 
-                out.println("B");
-
-                while (Amaze.moved)
-                {
-                    Amaze.time = nanoTime() - l;
-                }
+                while (Amaze.moved) { Amaze.time = nanoTime() - l; }
             }
         }
     }
