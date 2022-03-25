@@ -696,7 +696,7 @@ final class Clock implements Runnable
 
                 java.lang.System.out.println("B");
 
-                while (Amaze.moved) { Amaze.time = nanoTime() - l; }
+                while (Amaze.moved) { Amaze.time = java.lang.System.nanoTime() - l; }
             }
         }
     }
