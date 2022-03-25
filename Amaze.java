@@ -20,7 +20,7 @@ import static javafx.scene.paint.Color.PURPLE;
 import static javafx.scene.paint.Color.RED;
 import static javafx.scene.paint.Color.WHITE;
 
-public final class Amaze extends Application
+public final class Amaze extends javafx.application.Application
 {
     static Walls[][] w = new Walls[17][12];
     static Integer[] i = { 16, 0 };
@@ -41,7 +41,7 @@ public final class Amaze extends Application
     public static volatile long time = 0;
     public static volatile boolean moved = false;
 
-    public static void main(String[] a) { Application.launch(); }
+    public static void main(String[] a) { javafx.application.Application.launch(); }
 
     @Override
     public void start(Stage s)
@@ -262,7 +262,7 @@ public final class Amaze extends Application
         Amaze.w[15][11] = new Walls(0, 0, 1, 1);
         Amaze.w[16][11] = new Walls(1, 1, 1, 0);
 
-        Scene scene = new Scene(new StackPane(c), 1440, 720);
+        javafx.scene.Scene scene = new Scene(new StackPane(c), 1440, 720);
         scene.setOnKeyPressed(e -> this.keyEvent(e.getCode()));
 
         Amaze.redraw();
@@ -271,8 +271,8 @@ public final class Amaze extends Application
         s.setMaximized(true);
         s.show();
 
-        Runnable r = new Clock();
-        Thread t = new Thread(r);
+        java.lang.Runnable r = new Clock();
+        java.land.Thread t = new Thread(r);
         t.start();
     }
 
@@ -692,13 +692,11 @@ final class Clock implements Runnable
         {
             if (Amaze.moved)
             {
-                long l = nanoTime();
+                long l = java.lang.System.nanoTime();
 
-                System.out.println("B");
+                java.lang.System.out.println("B");
 
-                while (Amaze.moved)
-                {
-                    Amaze.time = nanoTime() - l; }
+                while (Amaze.moved) { Amaze.time = nanoTime() - l; }
             }
         }
     }
